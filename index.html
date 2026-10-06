@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc Nghiệm Công Nghệ Nền Của 4.0 (169 Câu)</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --pink: #ec4899;
+            --pink-dark: #db2777;
+            --pink-light: #fce7f3;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --error: #dc2626;
+            --error-bg: #fee2e2;
+            --bg: #fff5f8;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #f3d2e4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 24px 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.08);
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, var(--primary), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .sticky-stats {
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.93);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.12);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-item {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .stat-item span {
+            color: var(--pink-dark);
+            font-weight: 700;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        button.btn {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        button.btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+
+        button.btn-pink {
+            background: linear-gradient(135deg, var(--pink), #f43f5e);
+            box-shadow: 0 2px 6px rgba(236, 72, 153, 0.25);
+        }
+
+        button.btn-pink:hover {
+            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.35);
+        }
+
+        button.btn-reset {
+            background-color: #64748b;
+        }
+
+        button.btn-reset:hover {
+            background-color: #475569;
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border);
+            transition: border-color 0.2s;
+        }
+
+        .question-card:hover {
+            border-color: #f472b6;
+        }
+
+        .question-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text);
+            display: flex;
+            gap: 10px;
+        }
+
+        .question-num {
+            background: var(--pink-light);
+            color: var(--pink-dark);
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            height: fit-content;
+            white-space: nowrap;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #fff0f5;
+            border: 1px solid #fbcfe8;
+            border-radius: 10px;
+            padding: 12px 16px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            background: #fce7f3;
+            border-color: #f472b6;
+            transform: translateX(2px);
+        }
+
+        .option-prefix {
+            font-weight: 700;
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #fbcfe8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--pink-dark);
+        }
+
+        /* State styles */
+        .option-btn.correct {
+            background-color: var(--success-bg) !important;
+            border-color: var(--success) !important;
+            color: #14532d;
+            font-weight: 600;
+        }
+
+        .option-btn.correct .option-prefix {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .option-btn.incorrect {
+            background-color: var(--error-bg) !important;
+            border-color: var(--error) !important;
+            color: #7f1d1d;
+        }
+
+        .option-btn.incorrect .option-prefix {
+            background-color: var(--error);
+            color: white;
+        }
+
+        .option-btn[disabled] {
+            cursor: default;
+        }
+
+        .feedback {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+            font-weight: 500;
+        }
+
+        .feedback.show-correct {
+            display: block;
+            background-color: var(--success-bg);
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .feedback.show-incorrect {
+            display: block;
+            background-color: var(--error-bg);
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>ÔN TẬP CÔNG NGHỆ NỀN CỦA 4.0</h1>
+        <p class="subtitle">Bộ câu hỏi trắc nghiệm tương tác (169 câu) - Tự động xáo trộn & Chấm điểm</p>
+    </header>
+
+    <div class="sticky-stats">
+        <div class="stat-item">Đã làm: <span id="done-count">0</span>/169</div>
+        <div class="stat-item">Đúng: <span id="correct-count">0</span></div>
+        <div class="stat-item">Điểm: <span id="score-pct">0%</span></div>
+        <div class="controls">
+            <button class="btn btn-pink" onclick="shuffleQuiz()">Đảo câu hỏi</button>
+            <button class="btn btn-reset" onclick="resetQuiz()">Làm lại từ đầu</button>
+        </div>
+    </div>
+
+    <div id="quiz-container" class="quiz-container">
+        <!-- Questions injected here -->
+    </div>
+
+    <script>
+        const originalQuestions = [
+            {
+                "q": "Khái niệm Cách mạng công nghiệp lần thứ tư được giới thiệu lần đầu tiên vào năm nào?",
+                "ans": "2011",
+                "options": [
+                    "2005",
+                    "2008",
+                    "2011",
+                    "2015"
+                ]
+            },
+            {
+                "q": "Khái niệm Cách mạng công nghiệp lần thứ tư được giới thiệu lần đầu tiên bởi một nhóm nhà khoa học người nước nào?",
+                "ans": "Đức",
+                "options": [
+                    "Mỹ",
+                    "Nhật Bản",
+                    "Anh",
+                    "Đức"
+                ]
+            },
+            {
+                "q": "Dấu mốc lịch sử của nền các mạng công nghiệp lần thứ 1 là năm nào?",
+                "ans": "1784",
+                "options": [
+                    "1784",
+                    "1870",
+                    "1969",
+                    "2011"
+                ]
+            },
+            {
+                "q": "Dấu mốc lịch sử của nền các mạng công nghiệp lần thứ 2 là năm nào?",
+                "ans": "1870",
+                "options": [
+                    "1784",
+                    "1870",
+                    "1969",
+                    "2011"
+                ]
+            },
+            {
+                "q": "Dấu mốc lịch sử của nền các mạng công nghiệp lần thứ 3 là năm nào?",
+                "ans": "1969",
+                "options": [
+                    "1784",
+                    "1870",
+                    "1969",
+                    "2011"
+                ]
+            },
+            {
+                "q": "Đặc trưng của nền cách mạng công nghiệp lần thứ nhất là?",
+                "ans": "Cơ khí hóa với máy chạy bằng thủy lực và hơi nước",
+                "options": [
+                    "Cơ khí hóa với máy chạy bằng thủy lực và hơi nước",
+                    "Động cơ điện và dây chuyền lắp ráp hàng loạt",
+                    "Kỷ nguyên máy tính và tự động hóa",
+                    "Các hệ thống liên kết thế giới thực và ảo"
+                ]
+            },
+            {
+                "q": "Đặc trưng của nền cách mạng công nghiệp lần thứ hai là?",
+                "ans": "Động cơ điện và dây chuyền lắp ráp hàng loạt",
+                "options": [
+                    "Cơ khí hóa với máy chạy bằng thủy lực và hơi nước",
+                    "Động cơ điện và dây chuyền lắp ráp hàng loạt",
+                    "Kỷ nguyên máy tính và tự động hóa",
+                    "Các hệ thống liên kết thế giới thực và ảo"
+                ]
+            },
+            {
+                "q": "Đặc trưng của nền cách mạng công nghiệp lần thứ ba là?",
+                "ans": "Kỷ nguyên máy tính và tự động hóa",
+                "options": [
+                    "Cơ khí hóa với máy chạy bằng thủy lực và hơi nước",
+                    "Động cơ điện và dây chuyền lắp ráp hàng loạt",
+                    "Kỷ nguyên máy tính và tự động hóa",
+                    "Các hệ thống liên kết thế giới thực và ảo"
+                ]
+            },
+            {
+                "q": "Đặc trưng của nền cách mạng công nghiệp lần thứ tư là?",
+                "ans": "Các hệ thống liên kết thế giới thực và ảo",
+                "options": [
+                    "Cơ khí hóa với máy chạy bằng thủy lực và hơi nước",
+                    "Động cơ điện và dây chuyền lắp ráp hàng loạt",
+                    "Kỷ nguyên máy tính và tự động hóa",
+                    "Các hệ thống liên kết thế giới thực và ảo"
+                ]
+            },
+            {
+                "q": "Các đặc trưng: Kết nối số, Dữ liệu lớn, Trí tuệ nhân tạo, hệ thống sản xuất thông minh, ... là các đặc trưng của nền cách mạng công nghiệp nào?",
+                "ans": "CMCN lần thứ 4",
+                "options": [
+                    "CMCN lần thứ 4",
+                    "CMCN lần thứ 3",
+                    "CMCN lần thứ 2",
+                    "CMCN lần thứ 1"
+                ]
+            },
+            {
+                "q": "Người được gọi là cha đẻ của IoT là ai?",
+                "ans": "Kevin Ashton",
+                "options": [
+                    "Kevin Ashton",
+                    "Alan Turing",
+                    "Tim Berners-Lee",
+                    "Bill Gates"
+                ]
+            },
+            {
+                "q": "Thuật ngữ Internet of Things lần đầu được nhắc đến vào năm nào?",
+                "ans": "1999",
+                "options": [
+                    "1999",
+                    "1995",
+                    "2001",
+                    "2010"
+                ]
+            },
+            {
+                "q": "Hệ sinh thái IoT bao gồm mấy thành phần?",
+                "ans": "5",
+                "options": [
+                    "3",
+                    "5",
+                    "7",
+                    "9"
+                ]
+            },
+            {
+                "q": "Kiến trúc nền tảng của IoT hiện đại cơ bản nhất gồm mấy thành phần?",
+                "ans": "8",
+                "options": [
+                    "4",
+                    "6",
+                    "8",
+                    "10"
+                ]
+            },
+            {
+                "q": "Máy tính xách tay đã giúp thúc đẩy ý tưởng thiết bị di động và thay đổi cách chúng ta nghĩ về thế giới di động. Điểm hấp dẫn chính của máy tính xách tay khiến nó trở thành thiết bị phổ biến như vậy là gì?",
+                "ans": "Máy tính xách tay có chức năng máy tính để bàn có thể mang đi mọi nơi.",
+                "options": [
+                    "Giá thành rẻ hơn rất nhiều so với máy tính để bàn.",
+                    "Máy tính xách tay có chức năng máy tính để bàn có thể mang đi mọi nơi.",
+                    "Máy tính xách tay không cần dung lượng pin.",
+                    "Máy tính xách tay có tốc độ xử lý nhanh gấp 10 lần máy bàn."
+                ]
+            },
+            {
+                "q": "IoT là cụm từ được viết tắt bởi?",
+                "ans": "Internet of Things",
+                "options": [
+                    "Internet of Technology",
+                    "Information of Things",
+                    "Internet of Things",
+                    "Integration of Things"
+                ]
+            },
+            {
+                "q": "Nền tảng Internet of Things:",
+                "ans": "Cho phép các thiết bị và ứng dụng giao tiếp với nhau",
+                "options": [
+                    "Chỉ dùng để kết nối máy tính cá nhân",
+                    "Cho phép các thiết bị và ứng dụng giao tiếp với nhau",
+                    "Chỉ hoạt động trong môi trường phòng thí nghiệm",
+                    "Thay thế toàn bộ con người trong quản lý"
+                ]
+            },
+            {
+                "q": "Sản phẩm nào không phải là sản phẩm IoT?",
+                "ans": "Sổ tiết kiệm truyền thống",
+                "options": [
+                    "Đồng hồ thông minh",
+                    "Tủ lạnh kết nối internet",
+                    "Đèn thông minh",
+                    "Sổ tiết kiệm truyền thống"
+                ]
+            },
+            {
+                "q": "Tuyên bố nào phù hợp nhất với Internet of Things?",
+                "ans": "Internet of Things bao gồm hàng tỷ thiết bị trên khắp thế giới được kết nối với internet",
+                "options": [
+                    "Internet of Things bao gồm hàng tỷ thiết bị trên khắp thế giới được kết nối với internet",
+                    "IoT chỉ hoạt động với các mạng nội bộ LAN",
+                    "IoT là mạng dành riêng cho máy tính siêu cấp",
+                    "IoT không yêu cầu cảm biến hay dữ liệu mạng"
+                ]
+            },
+            {
+                "q": "Phần cứng của IoT thu thập dữ liệu thông qua việc sử dụng:",
+                "ans": "Cảm biến",
+                "options": [
+                    "Màn hình",
+                    "Bàn phím",
+                    "Cảm biến",
+                    "Loa"
+                ]
+            },
+            {
+                "q": "Công nghệ AR có mấy loại?",
+                "ans": "4",
+                "options": [
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                ]
+            },
+            {
+                "q": "Thành phần cấu tạo nên hệ thống AR?",
+                "ans": "Tất cả các phương án",
+                "options": [
+                    "Bộ vi xử lý và phần mềm",
+                    "Cảm biến và thiết bị đầu vào",
+                    "Màn hình hiển thị",
+                    "Tất cả các phương án"
+                ]
+            },
+            {
+                "q": "Trí tuệ nhân tạo AI giúp gì cho AR?",
+                "ans": "Phân tích đặc điểm thực thể",
+                "options": [
+                    "Tăng dung lượng pin",
+                    "Phân tích đặc điểm thực thể",
+                    "Tạo môi trường vật lý mới",
+                    "Giảm kích thước phần cứng"
+                ]
+            },
+            {
+                "q": "Em hiểu thực tại hỗn hợp (Mixed Reality - MR) là gì?",
+                "ans": "Sự kết hợp giữa môi trường thực và thế giới ảo",
+                "options": [
+                    "Chỉ là môi trường ảo hoàn toàn",
+                    "Sự kết hợp giữa môi trường thực và thế giới ảo",
+                    "Chỉ là việc chiếu hình ảnh 2D",
+                    "Không liên quan đến công nghệ ảo"
+                ]
+            },
+            {
+                "q": "Mixed Reality - Thực tế hỗn hợp là?",
+                "ans": "Khi thế giới ảo kết hợp với thế giới thực",
+                "options": [
+                    "Khi thế giới ảo độc lập hoàn toàn",
+                    "Khi con người thoát khỏi thế giới thực",
+                    "Khi thế giới ảo kết hợp với thế giới thực",
+                    "Công nghệ chỉ dành cho chơi game"
+                ]
+            },
+            {
+                "q": "Chọn đáp án đúng trong các đáp án sau:",
+                "ans": "Thực tại ảo tăng cường là: AR - Augmented Reality",
+                "options": [
+                    "Thực tại ảo tăng cường là: AR - Augmented Reality",
+                    "Thực tại ảo tăng cường là: VR - Virtual Reality",
+                    "Thực tại ảo tăng cường là: MR - Mixed Reality",
+                    "Thực tại ảo tăng cường là: CR - Cyber Reality"
+                ]
+            },
+            {
+                "q": "Công nghệ có thể lấy một môi trường hiện thực và thêm một lớp thông tin ảo lên trên nó là:",
+                "ans": "Augmented Reality",
+                "options": [
+                    "Augmented Reality",
+                    "Virtual Reality",
+                    "Mixed Reality",
+                    "Artificial Intelligence"
+                ]
+            },
+            {
+                "q": "Rào cản cho việc sử dụng rộng rãi AR và VR là?",
+                "ans": "Tất cả các đáp án trên",
+                "options": [
+                    "Chi phí thiết bị còn cao",
+                    "Trải nghiệm người dùng chưa tối ưu",
+                    "Yêu cầu cấu hình phần cứng mạnh",
+                    "Tất cả các đáp án trên"
+                ]
+            },
+            {
+                "q": "Pokémon Go là một ví dụ về?",
+                "ans": "Một trò chơi thực tế tăng cường",
+                "options": [
+                    "Một trò chơi thực tế ảo VR",
+                    "Một ứng dụng trí tuệ nhân tạo thuần túy",
+                    "Một trò chơi thực tế tăng cường",
+                    "Một phần mềm diệt virus"
+                ]
+            },
+            {
+                "q": "Trải nghiệm thực tế tăng cường có thể được kích hoạt thông qua phương tiện nào trong số những phương tiện này?",
+                "ans": "Tất cả các thiết bị trên",
+                "options": [
+                    "Điện thoại thông minh",
+                    "Kính AR chuyên dụng",
+                    "Máy tính bảng",
+                    "Tất cả các thiết bị trên"
+                ]
+            },
+            {
+                "q": "Đâu không phải là tấn công chủ động?",
+                "ans": "Tấn công nghe lén (eavesdropping)",
+                "options": [
+                    "Tấn công nghe lén (eavesdropping)",
+                    "Tấn công từ chối dịch vụ (DoS)",
+                    "Tấn công mạo danh",
+                    "Tấn công chèn dữ liệu"
+                ]
+            },
+            {
+                "q": "Thế nào là phần mềm ngăn chặn hành vi?",
+                "ans": "Phần mềm theo dõi và ngăn chặn các hành vi bất thường trên hệ thống",
+                "options": [
+                    "Phần mềm theo dõi và ngăn chặn các hành vi bất thường trên hệ thống",
+                    "Phần mềm diệt vi-rút truyền thống dựa trên dấu hiệu",
+                    "Phần mềm sao lưu dữ liệu tự động",
+                    "Phần mềm quản lý mật khẩu"
+                ]
+            },
+            {
+                "q": "Chính sách tài khoản nào nên được thiết lập để ngăn chặn các cuộc tấn công ác ý vào tài khoản của user?",
+                "ans": "Giới hạn số lần logon",
+                "options": [
+                    "Giới hạn số lần logon",
+                    "Cho phép mật khẩu trống",
+                    "Không bao giờ yêu cầu đổi mật khẩu",
+                    "Mở tất cả cổng dịch vụ"
+                ]
+            },
+            {
+                "q": "Một IP flood theo các host phát tán trực tiếp đến một Web server là một ví dụ của loại tấn công gì?",
+                "ans": "DoS phân tán (DDoS)",
+                "options": [
+                    "Man-in-the-middle",
+                    "DoS phân tán (DDoS)",
+                    "Phishing",
+                    "Spoofing"
+                ]
+            },
+            {
+                "q": "Thiết bị nào sử dụng bộ lọc gói và các quy tắc truy cập để kiểm soát truy cập đến các mạng riêng từ các mạng công cộng, như Internet?",
+                "ans": "Firewall",
+                "options": [
+                    "Firewall",
+                    "Switch",
+                    "Hub",
+                    "Repeater"
+                ]
+            },
+            {
+                "q": "Ứng dụng mạng nào có thể được sử dụng để phân tích và kiểm tra lưu lượng mạng?",
+                "ans": "Packet Sniffer",
+                "options": [
+                    "Packet Sniffer",
+                    "Web Browser",
+                    "Text Editor",
+                    "Media Player"
+                ]
+            },
+            {
+                "q": "Ta phải làm gì để ngăn chặn một ai đó tình cờ ghi đè lên dữ liệu trên một băng từ?",
+                "ans": "Thiết lập tab Write-protect",
+                "options": [
+                    "Thiết lập tab Write-protect",
+                    "Xóa toàn bộ băng từ",
+                    "Format băng từ",
+                    "Rút nguồn điện máy đọc băng"
+                ]
+            },
+            {
+                "q": "Các giao thức nào sau đây làm việc trên lớp IP để bảo vệ thông tin IP trên mạng?",
+                "ans": "IPSec",
+                "options": [
+                    "IPSec",
+                    "HTTP",
+                    "FTP",
+                    "SMTP"
+                ]
+            },
+            {
+                "q": "Giao thức được sử dụng rộng rãi nhất để truy cập kiểu quay số đến một máy chủ từ xa là?",
+                "ans": "SLIP và PPP",
+                "options": [
+                    "SLIP và PPP",
+                    "TCP và UDP",
+                    "HTTP và HTTPS",
+                    "DHCP và DNS"
+                ]
+            },
+            {
+                "q": "Loại mã nguồn độc hại nào có thể được cài đặt song không gây tác hại cho đến khi một hoạt động nào đó được kích hoạt?",
+                "ans": "Trojan horse / Logic bomb",
+                "options": [
+                    "Trojan horse / Logic bomb",
+                    "Virus thông thường",
+                    "Worm",
+                    "Adware"
+                ]
+            },
+            {
+                "q": "Trí tuệ nhân tạo là gì?",
+                "ans": "Là một bộ môn khoa học và kỹ thuật chế tạo máy thông minh",
+                "options": [
+                    "Chỉ là phần mềm vẽ đồ họa",
+                    "Là một bộ môn khoa học và kỹ thuật chế tạo máy thông minh",
+                    "Là phần cứng máy tính tốc độ cao",
+                    "Là mạng kết nối các thiết bị di động"
+                ]
+            },
+            {
+                "q": "Ai là người đưa ra phép thử Turing?",
+                "ans": "Alan Turing",
+                "options": [
+                    "John von Neumann",
+                    "Alan Turing",
+                    "Claude Shannon",
+                    "Geoffrey Hinton"
+                ]
+            },
+            {
+                "q": "Máy tính Deep Blue được xây dựng để làm gì?",
+                "ans": "Chơi cờ vua",
+                "options": [
+                    "Dự báo thời tiết",
+                    "Chơi cờ vua",
+                    "Dịch thuật tự động",
+                    "Lái xe tự động"
+                ]
+            },
+            {
+                "q": "Robot đầu tiên được trao quyền công dân trên thế giới tên là gì?",
+                "ans": "Sophia",
+                "options": [
+                    "Asimo",
+                    "Sophia",
+                    "Atlas",
+                    "Pepper"
+                ]
+            },
+            {
+                "q": "Trợ lý ảo được Apple tích hợp sẵn trên các thiết bị của họ tên là gì?",
+                "ans": "Siri",
+                "options": [
+                    "Alexa",
+                    "Google Assistant",
+                    "Siri",
+                    "Cortana"
+                ]
+            },
+            {
+                "q": "Điện toán đám mây (Cloud computing) còn được gọi là gì?",
+                "ans": "Máy chủ ảo",
+                "options": [
+                    "Máy chủ vật lý",
+                    "Máy chủ ảo",
+                    "Mạng cục bộ LAN",
+                    "Ổ cứng di động"
+                ]
+            },
+            {
+                "q": "Ứng dụng iCloud của Apple là một ứng dụng thuộc nền tảng nào?",
+                "ans": "Điện toán đám mây",
+                "options": [
+                    "Thực tế ảo tăng cường",
+                    "Điện toán đám mây",
+                    "Mạng xã hội",
+                    "Blockchain"
+                ]
+            },
+            {
+                "q": "Đâu là tên của các công nghệ / phương pháp in 3D?",
+                "ans": "Tất cả đáp án đều đúng",
+                "options": [
+                    "SLA (Stereolithography)",
+                    "FDM (Fused Deposition Modeling)",
+                    "SLS (Selective Laser Sintering)",
+                    "Tất cả đáp án đều đúng"
+                ]
+            },
+            {
+                "q": "Có mấy công nghệ in 3D cơ bản phổ biến nhất?",
+                "ans": "3",
+                "options": [
+                    "2",
+                    "3",
+                    "5",
+                    "7"
+                ]
+            },
+            {
+                "q": "Đâu là nhược điểm của in 3D?",
+                "ans": "Tất cả các đáp án trên",
+                "options": [
+                    "Chi phí vật liệu còn cao",
+                    "Tốc độ sản xuất quy mô lớn còn hạn chế",
+                    "Yêu cầu xử lý hậu kỳ",
+                    "Tất cả các đáp án trên"
+                ]
+            },
+            {
+                "q": "Công nghệ In 3D, robot tự hành, ... là các đặc trưng của nền cách mạng công nghiệp nào?",
+                "ans": "CMCN lần thứ 4",
+                "options": [
+                    "CMCN lần thứ 4",
+                    "CMCN lần thứ 3",
+                    "CMCN lần thứ 2",
+                    "CMCN lần thứ 1"
+                ]
+            },
+            {
+                "q": "Đặc trưng của công nghiệp 4.0 là gì?",
+                "ans": "Vạn vật kết nối, trí tuệ nhân tạo, Hệ thống sản xuất thông minh, Dữ liệu lớn",
+                "options": [
+                    "Vạn vật kết nối, trí tuệ nhân tạo, Hệ thống sản xuất thông minh, Dữ liệu lớn",
+                    "Động cơ hơi nước và đường sắt",
+                    "Sản xuất dây chuyền điện năng",
+                    "Máy vi tính đơn lẻ"
+                ]
+            },
+            {
+                "q": "Robot đầu tiên tại Việt Nam phục vụ trong lĩnh vực giáo dục có tên là?",
+                "ans": "Trí Nhân",
+                "options": [
+                    "Trí Nhân",
+                    "Sora",
+                    "VN-Bot",
+                    "Robot Tốt Bụng"
+                ]
+            },
+            {
+                "q": "Quá trình sản xuất các chất liệu (nhựa, kim loại hay bất kỳ thứ gì khác) theo phương cách xếp từng lớp với nhau để tạo nên một vật thể 3 chiều được gọi tên là công nghệ nào?",
+                "ans": "In 3D",
+                "options": [
+                    "Cắt CNC",
+                    "In 3D",
+                    "Đúc áp lực",
+                    "Gia công cơ khí"
+                ]
+            },
+            {
+                "q": "Một chuỗi những thuật toán được đưa ra để tìm kiếm các mối quan hệ cơ bản trong tập hợp các dữ liệu thông qua việc bắt chước cách thức hoạt động từ não bộ con người được gọi là?",
+                "ans": "Neural Network",
+                "options": [
+                    "Decision Tree",
+                    "Linear Regression",
+                    "Neural Network",
+                    "Genetic Algorithm"
+                ]
+            },
+            {
+                "q": "Thuật ngữ dùng để chỉ các hành động lưu giữ, sắp xếp, quản lý, chia sẻ, và sao lưu dữ liệu của cá thể sở hữu nó trên một hệ thống lưu trữ bên ngoài được duy trì bởi các nhà cung cấp dịch vụ được gọi là?",
+                "ans": "Cloud Storage",
+                "options": [
+                    "Local Storage",
+                    "Cloud Storage",
+                    "RAM Buffer",
+                    "Flash ROM"
+                ]
+            },
+            {
+                "q": "Khối lượng dữ liệu (Volume); Tốc độ (Velocity); Giá trị (Value); Độ tin cậy/chính xác (Veracity); Đa dạng (Variety) là 5 đặc trưng của?",
+                "ans": "Big Data",
+                "options": [
+                    "Cloud Computing",
+                    "Blockchain",
+                    "IoT",
+                    "Big Data"
+                ]
+            },
+            {
+                "q": "Nơi được lắp đặt các thiết bị điện, điện tử có thể được điều khiển hoặc tự động hoá hoặc bán tự động, thay thế con người trong thực hiện một hoặc một số thao tác quản lý, điều khiển?",
+                "ans": "Smart Home",
+                "options": [
+                    "Smart Office",
+                    "Smart Home",
+                    "Datacenter",
+                    "Factory Automation"
+                ]
+            },
+            {
+                "q": "Đặc trưng tiêu biểu nhất của Big Data là?",
+                "ans": "Volume",
+                "options": [
+                    "Volume",
+                    "Velocity",
+                    "Variety",
+                    "Value"
+                ]
+            },
+            {
+                "q": "Rủi ro bị rò rỉ hoặc đánh cắp thông tin cao nếu như có nhiều thiết bị kết nối và chia sẻ dữ liệu; Tốn nhiều thời gian thu thập/quản lý thiết bị... là nhược điểm của hệ thống nào?",
+                "ans": "IoT",
+                "options": [
+                    "Cloud Storage",
+                    "Standalone PC",
+                    "IoT",
+                    "Cáp quang"
+                ]
+            },
+            {
+                "q": "IoT tiến hóa từ sự hội tụ của các công nghệ nào?",
+                "ans": "Công nghệ không dây, hệ thống vi cơ điện tử và Internet",
+                "options": [
+                    "Công nghệ không dây, hệ thống vi cơ điện tử và Internet",
+                    "Truyền hình cáp, đài phát thanh và vệ tinh",
+                    "Điện thoại cố định, fax và máy in",
+                    "Cơ khí hạng nặng, động cơ điezen và điện thoại"
+                ]
+            },
+            {
+                "q": "IoT phải có 2 thuộc tính nào sau đây?",
+                "ans": "Phải có ứng dụng internet và lấy được thông tin vật chủ",
+                "options": [
+                    "Phải có ứng dụng internet và lấy được thông tin vật chủ",
+                    "Phải sử dụng pin mặt trời và có màn hình cảm ứng",
+                    "Phải kết nối trực tiếp cổng USB và chạy hệ điều hành Windows",
+                    "Phải có bàn phím cơ và màn hình OLED"
+                ]
+            },
+            {
+                "q": "Công nghệ nào được sử dụng trong IoT?",
+                "ans": "Tất cả các đáp án",
+                "options": [
+                    "Cảm biến không dây",
+                    "Giao thức mạng (Zigbee, Wi-Fi, Bluetooth)",
+                    "Điện toán biên và điện toán đám mây",
+                    "Tất cả các đáp án"
+                ]
+            },
+            {
+                "q": "IoT giúp chiếc xe ô tô thông minh có thể?",
+                "ans": "Tất cả các đáp án đều đúng",
+                "options": [
+                    "Tự động định vị và dẫn đường",
+                    "Cảnh báo va chạm và tự động phanh",
+                    "Giám sát tình trạng kỹ thuật từ xa",
+                    "Tất cả các đáp án đều đúng"
+                ]
+            },
+            {
+                "q": "Các thiết bị IoT phải được cập nhật khi nào?",
+                "ans": "Phải luôn được cập nhật",
+                "options": [
+                    "Mỗi năm 1 lần",
+                    "Không cần cập nhật",
+                    "Phải luôn được cập nhật",
+                    "Chỉ cập nhật khi bị hỏng"
+                ]
+            },
+            {
+                "q": "Những thách thức lớn của IoT là gì?",
+                "ans": "An ninh và sự riêng tư",
+                "options": [
+                    "Chi phí sản xuất dây dẫn",
+                    "An ninh và sự riêng tư",
+                    "Thiếu không gian lưu trữ đĩa CD",
+                    "Không thể chạy trên mạng Wi-Fi"
+                ]
+            },
+            {
+                "q": "Điều nào sau đây là nhược điểm của việc sử dụng IoT?",
+                "ans": "Quá phụ thuộc vào công nghệ",
+                "options": [
+                    "Tăng hiệu suất làm việc",
+                    "Tiết kiệm năng lượng",
+                    "Dữ liệu thời gian thực",
+                    "Quá phụ thuộc vào công nghệ"
+                ]
+            },
+            {
+                "q": "Lợi ích của việc sử dụng IoT là gì?",
+                "ans": "Dữ liệu thu được theo thời gian thực",
+                "options": [
+                    "Dữ liệu thu được theo thời gian thực",
+                    "Tăng chi phí vận hành",
+                    "Giảm khả năng tự động hóa",
+                    "Phải thao tác thủ công nhiều hơn"
+                ]
+            },
+            {
+                "q": "Lợi ích của việc theo dõi giấc ngủ của bạn bằng thiết bị sức khỏe đeo được (đồng hồ thông minh) là gì?",
+                "ans": "Theo dõi các xu hướng để tối ưu hóa giấc ngủ của bạn",
+                "options": [
+                    "Thay thế hoàn toàn bác sĩ chuyên khoa",
+                    "Theo dõi các xu hướng để tối ưu hóa giấc ngủ của bạn",
+                    "Tự chữa trị các bệnh mạn tính",
+                    "Giảm nhu cầu ngủ xuống còn 1 giờ"
+                ]
+            },
+            {
+                "q": "Công việc của hệ thống nhúng trong một thiết bị IoT là gì?",
+                "ans": "Để kết nối dữ liệu cảm biến với Internet",
+                "options": [
+                    "Để kết nối dữ liệu cảm biến với Internet",
+                    "Để tạo ra giao diện đồ họa 3D phức tạp",
+                    "Để lưu trữ hàng terabyte dữ liệu cục bộ",
+                    "Để thực hiện đào coin tự động"
+                ]
+            },
+            {
+                "q": "Ứng dụng quan trọng nhất của AR trong lĩnh vực giáo dục hiện nay là gì?",
+                "ans": "Trực quan hóa kiến thức",
+                "options": [
+                    "Chấm điểm tự động",
+                    "Trực quan hóa kiến thức",
+                    "Điểm danh học sinh",
+                    "Soạn giáo án tự động"
+                ]
+            },
+            {
+                "q": "Hãy chọn những thiết bị dùng để hiển thị trong hệ thống AR?",
+                "ans": "Tất cả các phương án",
+                "options": [
+                    "Màn hình smartphone / tablet",
+                    "Kính thông minh (Smart Glasses)",
+                    "Màn hình kính chắn gió (HUD)",
+                    "Tất cả các phương án"
+                ]
+            },
+            {
+                "q": "Ứng dụng quan trọng nhất của AR trong lĩnh vực y tế hiện nay là gì?",
+                "ans": "Mô phỏng trước phẫu thuật",
+                "options": [
+                    "Mô phỏng trước phẫu thuật",
+                    "Sản xuất thuốc lá",
+                    "Tính tiền viện phí",
+                    "In hóa đơn y tế"
+                ]
+            },
+            {
+                "q": "Ứng dụng quan trọng nhất của AR trong lĩnh vực thương mại hiện nay là gì?",
+                "ans": "Trải nghiệm sản phẩm",
+                "options": [
+                    "Gửi thư quảng cáo",
+                    "Trải nghiệm sản phẩm",
+                    "Thanh toán bằng tiền mặt",
+                    "Vận chuyển hàng hóa"
+                ]
+            },
+            {
+                "q": "Ứng dụng quan trọng nhất của AR trong lĩnh vực giao thông hiện nay là gì?",
+                "ans": "Chỉ đường",
+                "options": [
+                    "Chỉ đường",
+                    "Đo tốc độ xe",
+                    "Rửa xe tự động",
+                    "Thu phí không dừng"
+                ]
+            },
+            {
+                "q": "Ai có đóng góp quan trọng trong việc phát triển và ứng dụng thực tế ảo tăng cường?",
+                "ans": "Tất cả đều đúng",
+                "options": [
+                    "Ivan Sutherland",
+                    "Louis Rosenberg",
+                    "Hirokazu Kato",
+                    "Tất cả đều đúng"
+                ]
+            },
+            {
+                "q": "Game thực tế ảo tăng cường nổi tiếng nhất trên điện thoại là gì?",
+                "ans": "Pokemon Go",
+                "options": [
+                    "Pokemon Go",
+                    "Flappy Bird",
+                    "Candy Crush",
+                    "Subway Surfers"
+                ]
+            },
+            {
+                "q": "Ứng dụng quan trọng nhất của AR trong đời sống gia đình hiện nay là gì?",
+                "ans": "Hướng dẫn sử dụng, sửa chữa đồ đạc",
+                "options": [
+                    "Hướng dẫn sử dụng, sửa chữa đồ đạc",
+                    "Trồng cây tự động",
+                    "Nấu ăn tự động",
+                    "Lau dọn nhà cửa"
+                ]
+            },
+            {
+                "q": "Các khó khăn mà xã hội cần giải quyết khi ứng dụng AR là gì?",
+                "ans": "An toàn sức khỏe người dùng, bảo mật thông tin, tương tác xã hội",
+                "options": [
+                    "An toàn sức khỏe người dùng, bảo mật thông tin, tương tác xã hội",
+                    "Thiếu nguồn điện năng lượng mặt trời",
+                    "Tốc độ mạng internet quá nhanh",
+                    "Giá màn hình TV giảm sâu"
+                ]
+            },
+            {
+                "q": "Những chức năng cần phải có trên thiết bị di động để có thể chơi được game Pokemon Go?",
+                "ans": "Màn hình, Camera, GPS, Kết nối Internet (3G/4G/Wi-Fi)",
+                "options": [
+                    "Màn hình, Camera, GPS, Kết nối Internet (3G/4G/Wi-Fi)",
+                    "Bàn phím QWERTY, cổng hồng ngoại, đài FM",
+                    "Màn hình trắng đen, Bluetooth 1.0, GPS",
+                    "Cổng máy in, đĩa CD, Camera 3D"
+                ]
+            },
+            {
+                "q": "Thiết bị nào được sử dụng để cho phép các máy trạm không dây truy cập vào một mạng LAN rộng?",
+                "ans": "Wireless Access Point",
+                "options": [
+                    "Switch",
+                    "Router",
+                    "Wireless Access Point",
+                    "Hub"
+                ]
+            },
+            {
+                "q": "Cơ cấu bảo mật nào sau đây được sử dụng với chuẩn không dây WAP?",
+                "ans": "WTLS",
+                "options": [
+                    "WTLS",
+                    "SSL",
+                    "TLS",
+                    "IPSec"
+                ]
+            },
+            {
+                "q": "Hai cơ chế chính của hệ thống IDS Trigger để phát hiện khi có một kẻ xâm nhập tấn công mạng là?",
+                "ans": "Phát hiện biểu hiện không bình thường, phát hiện sử dụng không đúng",
+                "options": [
+                    "Phát hiện biểu hiện không bình thường, phát hiện sử dụng không đúng",
+                    "Kiểm tra mật khẩu, quét virus",
+                    "Mã hóa dữ liệu, chặn cổng IP",
+                    "Phân tích địa chỉ MAC, tường lửa"
+                ]
+            },
+            {
+                "q": "Hai giao thức chính sử dụng trong IPSec là?",
+                "ans": "IP Authentication Header (AH), IP Encapsulating Security Payload (ESP)",
+                "options": [
+                    "IP Authentication Header (AH), IP Encapsulating Security Payload (ESP)",
+                    "TCP và UDP",
+                    "HTTP và HTTPS",
+                    "SSL và TLS"
+                ]
+            },
+            {
+                "q": "Khi thuê một giải pháp VPN, những loại tấn công nào bạn cần phải xét đến?",
+                "ans": "Denial of Service (DoS) attacks, Internet Viruses",
+                "options": [
+                    "Denial of Service (DoS) attacks, Internet Viruses",
+                    "Tấn công vật lý vào trụ sở",
+                    "Tấn công bằng điện thoại cố định",
+                    "Tấn công chiếm quyền điều khiển vệ tinh"
+                ]
+            },
+            {
+                "q": "Các phát biểu sau đây phát biểu nào là đúng nhất về Firewall?",
+                "ans": "Là một điểm chặn trong quá trình điều khiển và giám sát lưu lượng mạng",
+                "options": [
+                    "Là một điểm chặn trong quá trình điều khiển và giám sát lưu lượng mạng",
+                    "Là phần mềm chuyên dùng để tăng tốc độ internet",
+                    "Là thiết bị lưu trữ dữ liệu tập trung",
+                    "Là công cụ tự động diệt mọi loại vi-rút trên máy tính"
+                ]
+            },
+            {
+                "q": "Bảo mật thư điện tử là nhằm đảm bảo?",
+                "ans": "Tính tin cậy (confidentiality), tính xác nhận, toàn vẹn thông điệp (integrity), sự không thoái thác ban đầu",
+                "options": [
+                    "Tính tin cậy (confidentiality), tính xác nhận, toàn vẹn thông điệp (integrity), sự không thoái thác ban đầu",
+                    "Thư đến nhanh hơn 10 lần",
+                    "Dung lượng thư không giới hạn",
+                    "Tự động trả lời thư phản hồi"
+                ]
+            },
+            {
+                "q": "Các giao thức được dùng để bảo mật thư điện tử là?",
+                "ans": "GPG, S/MIME",
+                "options": [
+                    "GPG, S/MIME",
+                    "HTTP, FTP",
+                    "DHCP, DNS",
+                    "SNMP, ICMP"
+                ]
+            },
+            {
+                "q": "Chữ ký điện tử là gì?",
+                "ans": "Cả A và B đều đúng",
+                "options": [
+                    "Thông tin đi kèm dữ liệu nhằm xác nhận người ký",
+                    "Dữ liệu được mã hóa bằng khóa riêng của người gửi",
+                    "Cả A và B đều đúng",
+                    "Chữ ký tay được chụp hình lại"
+                ]
+            },
+            {
+                "q": "Các lỗ hổng bảo mật trong hệ thống xuất phát từ nguyên nhân nào?",
+                "ans": "Tất cả đều đúng",
+                "options": [
+                    "Lỗi thiết kế hoặc lập trình phần mềm",
+                    "Cấu hình hệ thống không đúng cách",
+                    "Ý thức bảo mật của người dùng kém",
+                    "Tất cả đều đúng"
+                ]
+            },
+            {
+                "q": "AI là viết tắt của từ tiếng Anh nào?",
+                "ans": "Artificial Intelligence",
+                "options": [
+                    "Automated Information",
+                    "Artificial Intelligence",
+                    "Advanced Internet",
+                    "Automated Intelligence"
+                ]
+            },
+            {
+                "q": "Máy tính Deep Blue là sản phẩm của công ty nào?",
+                "ans": "IBM",
+                "options": [
+                    "IBM",
+                    "Microsoft",
+                    "Google",
+                    "Apple"
+                ]
+            },
+            {
+                "q": "Dữ liệu lớn (Big Data) là gì?",
+                "ans": "Chỉ một tập hợp dữ liệu rất lớn và phức tạp mà các ứng dụng xử lý dữ liệu truyền thống không thể xử lý được",
+                "options": [
+                    "Một tập tin Excel dung lượng 10MB",
+                    "Chỉ một tập hợp dữ liệu rất lớn và phức tạp mà các ứng dụng xử lý dữ liệu truyền thống không thể xử lý được",
+                    "Cơ sở dữ liệu lưu trữ trên thẻ nhớ SD",
+                    "Toàn bộ hình ảnh lưu trong điện thoại"
+                ]
+            },
+            {
+                "q": "Ứng dụng Google Drive là một ứng dụng thuộc nền tảng nào?",
+                "ans": "Điện toán đám mây",
+                "options": [
+                    "Thực tế tăng cường AR",
+                    "Điện toán đám mây",
+                    "Trí tuệ nhân tạo thuần túy",
+                    "Blockchain"
+                ]
+            },
+            {
+                "q": "Công nghệ in 3D là gì?",
+                "ans": "Sản xuất các vật thể bằng cách đắp từng lớp vật liệu chồng lên nhau",
+                "options": [
+                    "Sản xuất các vật thể bằng cách đắp từng lớp vật liệu chồng lên nhau",
+                    "In hình ảnh lên giấy phẳng 2D bằng mực in màu",
+                    "Chụp ảnh vật thể 3 chiều",
+                    "Phóng to hình ảnh trên màn hình"
+                ]
+            },
+            {
+                "q": "Dịch vụ điện toán đám mây thực hiện theo mô hình PaaS được hiểu là gì?",
+                "ans": "Nền tảng như một dịch vụ (Platform as a Service)",
+                "options": [
+                    "Nền tảng như một dịch vụ (Platform as a Service)",
+                    "Phần mềm như một dịch vụ",
+                    "Cơ sở hạ tầng như một dịch vụ",
+                    "Lưu trữ như một dịch vụ"
+                ]
+            },
+            {
+                "q": "Dịch vụ điện toán đám mây thực hiện theo mô hình SaaS được hiểu là gì?",
+                "ans": "Phần mềm như một dịch vụ (Software as a Service)",
+                "options": [
+                    "Nền tảng như một dịch vụ",
+                    "Phần mềm như một dịch vụ (Software as a Service)",
+                    "Cơ sở hạ tầng như một dịch vụ",
+                    "Phần cứng như một dịch vụ"
+                ]
+            },
+            {
+                "q": "Dịch vụ điện toán đám mây thực hiện theo mô hình IaaS được hiểu là gì?",
+                "ans": "Cơ sở hạ tầng như một dịch vụ (Infrastructure as a Service)",
+                "options": [
+                    "Nền tảng như một dịch vụ",
+                    "Phần mềm như một dịch vụ",
+                    "Cơ sở hạ tầng như một dịch vụ (Infrastructure as a Service)",
+                    "Mạng truyền thông như một dịch vụ"
+                ]
+            },
+            {
+                "q": "Các thành phần quan trọng của Robot tự hành gồm:",
+                "ans": "Nhận thức, ra quyết định và hành động",
+                "options": [
+                    "Nhận thức, ra quyết định và hành động",
+                    "Bàn phím, chuột và màn hình",
+                    "Lốp xe, vô năng và động cơ xăng",
+                    "Cánh tay, màn hình và micro"
+                ]
+            },
+            {
+                "q": "Robot tự vận hành trong nhà kho giúp ích gì?",
+                "ans": "Tất cả các đáp án trên",
+                "options": [
+                    "Tăng tốc độ vận chuyển hàng hóa",
+                    "Giảm chi phí nhân công và sai sót",
+                    "Hoạt động liên tục 24/7",
+                    "Tất cả các đáp án trên"
+                ]
+            },
+            {
+                "q": "Ngoài Volume, Value, Veracity và Variety còn đặc trưng V nào nữa của Big Data?",
+                "ans": "Velocity",
+                "options": [
+                    "Velocity",
+                    "Virtual",
+                    "Visual",
+                    "Vector"
+                ]
+            },
+            {
+                "q": "Cuộc cách mạng công nghiệp lần thứ nhất khởi phát tại nước nào?",
+                "ans": "Anh",
+                "options": [
+                    "Pháp",
+                    "Đức",
+                    "Mỹ",
+                    "Anh"
+                ]
+            },
+            {
+                "q": "Cuộc cách mạng công nghiệp lần thứ hai khởi phát tại nước nào?",
+                "ans": "Mỹ",
+                "options": [
+                    "Mỹ",
+                    "Anh",
+                    "Nga",
+                    "Nhật Bản"
+                ]
+            },
+            {
+                "q": "Cuộc cách mạng công nghiệp lần thứ ba khởi phát tại nước nào?",
+                "ans": "Mỹ",
+                "options": [
+                    "Mỹ",
+                    "Đức",
+                    "Anh",
+                    "Trung Quốc"
+                ]
+            },
+            {
+                "q": "Đặc trưng cốt lõi của nền công nghiệp lần thứ nhất là gì?",
+                "ans": "Cơ khí hóa với động cơ hơi nước",
+                "options": [
+                    "Sản xuất hàng loạt bằng điện năng",
+                    "Cơ khí hóa với động cơ hơi nước",
+                    "Tự động hóa với máy tính",
+                    "Hệ thống Cyber-Physical Systems"
+                ]
+            },
+            {
+                "q": "Đặc trưng cốt lõi của nền công nghiệp lần thứ hai là gì?",
+                "ans": "Sản xuất hàng loạt nhờ động cơ điện",
+                "options": [
+                    "Sản xuất hàng loạt nhờ động cơ điện",
+                    "Máy tính và Internet",
+                    "Động cơ hơi nước",
+                    "Trí tuệ nhân tạo"
+                ]
+            },
+            {
+                "q": "Đặc trưng cốt lõi của nền công nghiệp lần thứ ba là gì?",
+                "ans": "Máy tính, bán dẫn và tự động hóa",
+                "options": [
+                    "Máy tính, bán dẫn và tự động hóa",
+                    "Dây chuyền sản xuất thủ công",
+                    "Động cơ đốt trong",
+                    "Công nghệ Blockchain"
+                ]
+            },
+            {
+                "q": "Đặc trưng cốt lõi của nền công nghiệp lần thứ tư là gì?",
+                "ans": "Hệ thống liên kết thế giới thực và ảo (Cyber-Physical System)",
+                "options": [
+                    "Hệ thống liên kết thế giới thực và ảo (Cyber-Physical System)",
+                    "Máy dệt chạy bằng sức nước",
+                    "Đèn sợi đốt",
+                    "Mạng điện thoại cố định"
+                ]
+            },
+            {
+                "q": "Khái niệm Công nghiệp 4.0 (Industrie 4.0) lần đầu tiên được đưa ra tại nước nào?",
+                "ans": "Đức",
+                "options": [
+                    "Đức",
+                    "Mỹ",
+                    "Nhật Bản",
+                    "Anh"
+                ]
+            },
+            {
+                "q": "Khái niệm Công nghiệp 4.0 hay nhà máy thông minh lần đầu tiên được đưa ra vào năm nào?",
+                "ans": "2011",
+                "options": [
+                    "2011",
+                    "2000",
+                    "2015",
+                    "2020"
+                ]
+            },
+            {
+                "q": "Phát biểu nào về IoT sau đây là đúng?",
+                "ans": "Cả A và B đều đúng",
+                "options": [
+                    "IoT kết nối các thiết bị vật lý với Internet",
+                    "IoT cho phép thu thập và chia sẻ dữ liệu tự động",
+                    "Cả A và B đều đúng",
+                    "IoT chỉ dành riêng cho điện thoại di động"
+                ]
+            },
+            {
+                "q": "Các thiết bị IoT trong nhà (Smart Home) giúp ích trong việc nào sau đây?",
+                "ans": "Tất cả các đáp án",
+                "options": [
+                    "Tự động hóa điều khiển thiết bị",
+                    "Tiết kiệm năng lượng điện",
+                    "Giám sát an ninh từ xa",
+                    "Tất cả các đáp án"
+                ]
+            },
+            {
+                "q": "Một số tính năng mà ô tô thông minh có thể cung cấp là gì?",
+                "ans": "Tất cả đáp án đều đúng",
+                "options": [
+                    "Tự động đỗ xe",
+                    "Cảnh báo chệch làn đường",
+                    "Kết nối hệ thống định vị thời gian thực",
+                    "Tất cả đáp án đều đúng"
+                ]
+            },
+            {
+                "q": "Giao thông công cộng được hưởng lợi như thế nào từ Internet of Things?",
+                "ans": "Thông tin từ các thiết bị được kết nối với nhau được sử dụng để cải thiện chất lượng và bảo mật",
+                "options": [
+                    "Thông tin từ các thiết bị được kết nối với nhau được sử dụng để cải thiện chất lượng và bảo mật",
+                    "Tăng thời gian chờ chuyến của hành khách",
+                    "Loại bỏ hoàn toàn xe đò và tàu hỏa",
+                    "Giảm số lượng hành khách tham gia"
+                ]
+            },
+            {
+                "q": "Mọi thiết bị trên mạng của bạn cần thông tin nào sau đây để định danh trên mạng TCP/IP?",
+                "ans": "Địa chỉ IP",
+                "options": [
+                    "Địa chỉ MAC",
+                    "Địa chỉ IP",
+                    "Tên người dùng",
+                    "Mật khẩu Wi-Fi"
+                ]
+            },
+            {
+                "q": "Khi làm việc với UPnP, một thiết bị có thể tự gán điều gì cho chính nó?",
+                "ans": "Địa chỉ IP",
+                "options": [
+                    "Địa chỉ IP",
+                    "Địa chỉ MAC",
+                    "Tên miền Domain",
+                    "Cổng Gateway"
+                ]
+            },
+            {
+                "q": "4 thành phần phổ biến của hệ thống IoT là gì?",
+                "ans": "Sensor, Network, Application, Backend (Data Center)",
+                "options": [
+                    "Sensor, Network, Application, Backend (Data Center)",
+                    "CPU, RAM, Hard Disk, Monitor",
+                    "Input, Output, ALU, Control Unit",
+                    "Client, Server, Database, Firewall"
+                ]
+            },
+            {
+                "q": "Có mấy loại hình kiểm thử (Test Type) phổ biến trong hệ thống IoT?",
+                "ans": "5",
+                "options": [
+                    "3",
+                    "5",
+                    "7",
+                    "9"
+                ]
+            },
+            {
+                "q": "Dự báo đến năm 2025 có khoảng bao nhiêu thiết bị IoT trên thế giới?",
+                "ans": "75 tỷ thiết bị",
+                "options": [
+                    "10 tỷ thiết bị",
+                    "25 tỷ thiết bị",
+                    "75 tỷ thiết bị",
+                    "200 tỷ thiết bị"
+                ]
+            },
+            {
+                "q": "Dự báo đến năm 2030 có bao nhiêu thiết bị IoT trên toàn cầu?",
+                "ans": "500 tỷ thiết bị",
+                "options": [
+                    "100 tỷ thiết bị",
+                    "300 tỷ thiết bị",
+                    "500 tỷ thiết bị",
+                    "1000 tỷ thiết bị"
+                ]
+            },
+            {
+                "q": "Cơ sở dữ liệu tạo nên thực tế ảo tăng cường là gì?",
+                "ans": "Cả A và B đều đúng",
+                "options": [
+                    "Dữ liệu không gian thực tế",
+                    "Dữ liệu đồ họa kỹ thuật số 3D/2D",
+                    "Cả A và B đều đúng",
+                    "Dữ liệu bảng tính Excel"
+                ]
+            },
+            {
+                "q": "Điểm khác nhau giữa thực tế ảo tăng cường (AR) và thực tế ảo (VR)?",
+                "ans": "Cả A và B đều đúng",
+                "options": [
+                    "AR phủ thông tin ảo lên thế giới thực",
+                    "VR tạo ra môi trường ảo hoàn toàn tách biệt thế giới thực",
+                    "Cả A và B đều đúng",
+                    "AR không cần thiết bị hiển thị còn VR thì cần"
+                ]
+            },
+            {
+                "q": "Trên thị trường có những nền tảng nào hỗ trợ các nhà phát triển tạo nên các ứng dụng AR?",
+                "ans": "ARKit, ARCore",
+                "options": [
+                    "ARKit, ARCore",
+                    "Android Studio, Xcode",
+                    "React Native, Flutter",
+                    "Photoshop, Illustrator"
+                ]
+            },
+            {
+                "q": "Chọn thứ tự đúng các bước thực hiện để tích hợp thông tin tăng cường vào hệ thống AR:",
+                "ans": "Sử dụng camera phát hiện điểm mốc -> Xây dựng lại thế giới thực -> Bổ sung thông tin tăng cường",
+                "options": [
+                    "Sử dụng camera phát hiện điểm mốc -> Xây dựng lại thế giới thực -> Bổ sung thông tin tăng cường",
+                    "Bổ sung thông tin tăng cường -> Xây dựng thế giới thực -> Sử dụng camera",
+                    "Xây dựng thế giới thực -> Bổ sung thông tin -> Xóa điểm mốc",
+                    "Chụp ảnh -> In ảnh -> Dán lên màn hình"
+                ]
+            },
+            {
+                "q": "Phần mềm của hệ thống AR có thể thực hiện:",
+                "ans": "Có thể thực hiện trên chính phần mềm đó hoặc qua các phần mềm trung gian",
+                "options": [
+                    "Chỉ hoạt động độc lập không qua trung gian",
+                    "Có thể thực hiện trên chính phần mềm đó hoặc qua các phần mềm trung gian",
+                    "Chỉ hoạt động trên siêu máy tính",
+                    "Chỉ chạy được trên hệ điều hành DOS"
+                ]
+            },
+            {
+                "q": "Định nghĩa nào phù hợp nhất với thực tế tăng cường (AR)?",
+                "ans": "Công nghệ phủ thông tin kỹ thuật số lên trên các vật thể trong thế giới thực",
+                "options": [
+                    "Công nghệ tạo thế giới giả lập hoàn toàn",
+                    "Công nghệ phủ thông tin kỹ thuật số lên trên các vật thể trong thế giới thực",
+                    "Công nghệ nén dữ liệu video",
+                    "Công nghệ truyền hình vệ tinh"
+                ]
+            },
+            {
+                "q": "Xu hướng kết nối AR với thiết bị di động đòi hỏi những yêu cầu gì của hạ tầng thiết bị?",
+                "ans": "Thiết bị nhỏ hơn, giá thành rẻ hơn, tốc độ xử lý nhanh hơn",
+                "options": [
+                    "Thiết bị to hơn, nặng hơn, cồng kềnh hơn",
+                    "Thiết bị nhỏ hơn, giá thành rẻ hơn, tốc độ xử lý nhanh hơn",
+                    "Thiết bị không cần chip xử lý",
+                    "Thiết bị chỉ cần kết nối dây cáp"
+                ]
+            },
+            {
+                "q": "Trong thực tế bạn đã học và sử dụng công nghệ AR chưa?",
+                "ans": "Đã sử dụng",
+                "options": [
+                    "Chưa bao giờ nghe tới",
+                    "Đã sử dụng",
+                    "Chưa từng sử dụng",
+                    "Không có ứng dụng trong thực tế"
+                ]
+            },
+            {
+                "q": "Phần cứng của hệ thống tăng cường AR bao gồm?",
+                "ans": "Bộ vi xử lý, màn hình hiển thị, cảm biến, các thiết bị đầu vào",
+                "options": [
+                    "Chỉ cần bộ vi xử lý",
+                    "Chỉ cần màn hình",
+                    "Bộ vi xử lý, màn hình hiển thị, cảm biến, các thiết bị đầu vào",
+                    "Chỉ cần ống kính camera"
+                ]
+            },
+            {
+                "q": "Hãy chọn thiết bị đầu vào của hệ thống AR trong các đáp án dưới đây?",
+                "ans": "Tất cả các đáp án trên",
+                "options": [
+                    "Camera",
+                    "Cảm biến gia tốc / Con quay hồi chuyển",
+                    "GPS",
+                    "Tất cả các đáp án trên"
+                ]
+            },
+            {
+                "q": "Một máy tính kết nối internet bằng công nghệ ADSL. Khi kết nối thành công, ISP sẽ cấp một địa chỉ IP. Hãy chọn phát biểu chính xác:",
+                "ans": "Địa chỉ IP đó được cấp cho thiết bị mạng cổng RJ-11 trên ADSL modem",
+                "options": [
+                    "Địa chỉ IP đó được cấp cho thiết bị mạng cổng RJ-11 trên ADSL modem",
+                    "Địa chỉ IP đó gắn cố định vào vi xử lý CPU",
+                    "Địa chỉ IP đó được lưu trong thanh RAM",
+                    "Địa chỉ IP đó ghi thẳng vào ổ cứng"
+                ]
+            },
+            {
+                "q": "Dịch vụ Active Directory trong Windows Server thực hiện các chức năng nào?",
+                "ans": "Quản lý tài nguyên và người dùng; xác thực và cấp quyền cho users và groups",
+                "options": [
+                    "Quản lý tài nguyên và người dùng; xác thực và cấp quyền cho users và groups",
+                    "Chỉ dùng để quét virus",
+                    "Soạn thảo văn bản và tính toán",
+                    "Thiết kế đồ họa 3D"
+                ]
+            },
+            {
+                "q": "Giao thức bảo mật IPSec hoạt động ở tầng nào trong mô hình OSI?",
+                "ans": "Network Layer (Tầng mạng)",
+                "options": [
+                    "Application Layer",
+                    "Transport Layer",
+                    "Network Layer (Tầng mạng)",
+                    "Physical Layer"
+                ]
+            },
+            {
+                "q": "Để thực hiện tấn công bằng Trojan, kẻ tấn công cần:",
+                "ans": "Thực hiện đồng thời 2 file (file client chạy trên máy nạn nhân, file server trên máy kẻ tấn công)",
+                "options": [
+                    "Thực hiện đồng thời 2 file (file client chạy trên máy nạn nhân, file server trên máy kẻ tấn công)",
+                    "Đến tận nơi tháo ổ cứng máy nạn nhân",
+                    "Gửi tin nhắn SMS trực tiếp",
+                    "Chỉ cần cắm dây mạng"
+                ]
+            },
+            {
+                "q": "Cách nào sau đây là tốt nhất để chống lại điểm yếu bảo mật trong phần mềm hệ điều hành?",
+                "ans": "Cài đặt bản vá / Service Pack mới nhất",
+                "options": [
+                    "Cài đặt bản vá / Service Pack mới nhất",
+                    "Tắt toàn bộ máy tính không sử dụng",
+                    "Xóa hệ điều hành",
+                    "Đổi tên máy tính"
+                ]
+            },
+            {
+                "q": "Mật khẩu nào sau đây là khó phá nhất đối với một hacker?",
+                "ans": "!$aLtNb83",
+                "options": [
+                    "12345678",
+                    "password",
+                    "admin123",
+                    "!$aLtNb83"
+                ]
+            },
+            {
+                "q": "Tệp tin nào sau đây có khả năng chứa virus độc hại nhất?",
+                "ans": "Picture.gif.exe",
+                "options": [
+                    "Document.docx",
+                    "Picture.gif.exe",
+                    "Song.mp3",
+                    "Data.txt"
+                ]
+            },
+            {
+                "q": "Phương pháp kết nối truy cập từ xa nào có rủi ro bảo mật do luôn mở đối với mọi cuộc tấn công?",
+                "ans": "Wireless / Kết nối không dây mở",
+                "options": [
+                    "Wireless / Kết nối không dây mở",
+                    "Dùng đĩa mềm",
+                    "Mạng nội bộ cách ly hoàn toàn",
+                    "Dùng cáp nối tiếp trực tiếp"
+                ]
+            },
+            {
+                "q": "Giao thức mạng không dây nào phân phối nội dung Wireless Markup Language (WML) đến các ứng dụng Web trên thiết bị di động?",
+                "ans": "WAP",
+                "options": [
+                    "WAP",
+                    "HTTP",
+                    "FTP",
+                    "POP3"
+                ]
+            },
+            {
+                "q": "Kẻ tấn công sử dụng một chứng chỉ đã hết hiệu lực lặp đi lặp lại để giành quyền đăng nhập là dạng tấn công nào?",
+                "ans": "Replay attack / TCP/IP hijacking",
+                "options": [
+                    "Replay attack / TCP/IP hijacking",
+                    "SQL Injection",
+                    "Cross-site scripting",
+                    "Phishing"
+                ]
+            },
+            {
+                "q": "Trí tuệ nhân tạo (AI) là một nhánh của lĩnh vực nào?",
+                "ans": "Khoa học máy tính",
+                "options": [
+                    "Vật lý lý thuyết",
+                    "Khoa học máy tính",
+                    "Hóa học ứng dụng",
+                    "Sinh học tế bào"
+                ]
+            },
+            {
+                "q": "Trí tuệ nhân tạo liên quan đến việc gì?",
+                "ans": "Tự động hóa các hành vi thông minh",
+                "options": [
+                    "Tự động hóa các hành vi thông minh",
+                    "Tạo ra rô-bốt bằng sắt thép thủ công",
+                    "Chỉ sửa chữa máy tính bị hỏng",
+                    "Thay thế dây điện trong nhà"
+                ]
+            },
+            {
+                "q": "Để phân biệt một hệ thống có sử dụng trí tuệ nhân tạo hay không, ta cần xác định khả năng nào dưới đây của hệ thống đó?",
+                "ans": "Tự học (Self-learning)",
+                "options": [
+                    "Tốc độ gõ phím nhanh",
+                    "Tự học (Self-learning)",
+                    "Khả năng lưu trữ dung lượng lớn",
+                    "Màn hình hiển thị sắc nét"
+                ]
+            },
+            {
+                "q": "Trong phép thử Turing, nếu người quan sát (A) không thể phân biệt được đâu là câu trả lời của con người (B) và đâu là của máy (C), thì:",
+                "ans": "Máy (C) được coi là thể hiện trí thông minh",
+                "options": [
+                    "Máy (C) được coi là thể hiện trí thông minh",
+                    "Máy (C) bị coi là thất bại",
+                    "Máy (C) bị hỏng",
+                    "Phép thử không có hiệu lực"
+                ]
+            },
+            {
+                "q": "Các thành phần cốt lõi của một hệ thống AI là gì?",
+                "ans": "Dữ liệu, Con người, Phần cứng, Phần mềm, Quy trình",
+                "options": [
+                    "Dữ liệu, Con người, Phần cứng, Phần mềm, Quy trình",
+                    "Chỉ cần máy tính đắt tiền",
+                    "Chỉ cần đường truyền Internet",
+                    "Màn hình, bàn phím, chuột"
+                ]
+            },
+            {
+                "q": "Lợi ích của dữ liệu lớn (Big Data) là gì?",
+                "ans": "Giúp cắt giảm chi phí, giảm thời gian, tối ưu sản phẩm và hỗ trợ ra quyết định đúng đắn",
+                "options": [
+                    "Giúp cắt giảm chi phí, giảm thời gian, tối ưu sản phẩm và hỗ trợ ra quyết định đúng đắn",
+                    "Giảm tốc độ xử lý của máy tính",
+                    "Tăng dung lượng đĩa cứng cần mua",
+                    "Loại bỏ hoàn toàn công nghệ thông tin"
+                ]
+            },
+            {
+                "q": "Dữ liệu lớn (Big Data) có thể giúp gì cho chính phủ và các tổ chức?",
+                "ans": "Tất cả các đáp án đều đúng",
+                "options": [
+                    "Quản lý đô thị và giao thông thông minh",
+                    "Dự báo thời tiết và thiên tai",
+                    "Cải thiện dịch vụ công và y tế",
+                    "Tất cả các đáp án đều đúng"
+                ]
+            },
+            {
+                "q": "Điện toán đám mây (Cloud computing) được hiểu là gì?",
+                "ans": "Cung cấp sức mạnh tính toán, lưu trữ, ứng dụng qua Internet theo yêu cầu",
+                "options": [
+                    "Cung cấp sức mạnh tính toán, lưu trữ, ứng dụng qua Internet theo yêu cầu",
+                    "Dịch vụ dự báo mây và thời tiết",
+                    "Mạng cáp quang nối giữa các tòa nhà",
+                    "Phần mềm diệt vi-rút miễn phí"
+                ]
+            },
+            {
+                "q": "Tại sao công nghệ in 3D được gọi là Công nghệ sản xuất đắp dần (Additive Manufacturing)?",
+                "ans": "Vì tạo vật thể bằng cách đắp từng lớp vật liệu chồng lên nhau theo điều khiển máy tính",
+                "options": [
+                    "Vì tạo vật thể bằng cách đắp từng lớp vật liệu chồng lên nhau theo điều khiển máy tính",
+                    "Vì cắt gọt bớt từ một khối kim loại lớn",
+                    "Vì dán các tấm giấy phẳng lại với nhau",
+                    "Vì dùng màu vẽ đắp lên tranh"
+                ]
+            },
+            {
+                "q": "Trong hệ thống IoT, việc kết hợp AI giúp nâng cao hiệu quả ở khía cạnh nào sau đây?",
+                "ans": "Phân tích dữ liệu và ra quyết định tự động",
+                "options": [
+                    "Tăng trọng lượng thiết bị",
+                    "Phân tích dữ liệu và ra quyết định tự động",
+                    "Giảm số lượng cảm biến",
+                    "Thay thế cáp mạng bằng dây thừng"
+                ]
+            },
+            {
+                "q": "Khi áp dụng công nghệ Big Data trong sản xuất, giá trị lớn nhất mà doanh nghiệp thu được là gì?",
+                "ans": "Dự đoán xu hướng sản xuất và tối ưu chuỗi cung ứng",
+                "options": [
+                    "Tăng số lượng tài liệu giấy",
+                    "Dự đoán xu hướng sản xuất và tối ưu chuỗi cung ứng",
+                    "Giảm giá trị sản phẩm",
+                    "Thay thế toàn bộ quản lý cấp cao"
+                ]
+            },
+            {
+                "q": "Trong điện toán đám mây, mô hình nào cho phép người dùng tự triển khai phần mềm của mình trên nền tảng sẵn có?",
+                "ans": "PaaS (Platform as a Service)",
+                "options": [
+                    "PaaS (Platform as a Service)",
+                    "SaaS",
+                    "IaaS",
+                    "DaaS"
+                ]
+            },
+            {
+                "q": "Trong nhà máy thông minh, cảm biến IoT chủ yếu có nhiệm vụ gì?",
+                "ans": "Thu thập dữ liệu hoạt động của máy móc",
+                "options": [
+                    "Trực tiếp lắp ráp sản phẩm",
+                    "Thu thập dữ liệu hoạt động của máy móc",
+                    "In hóa đơn bán hàng",
+                    "Tự phát điện cho nhà máy"
+                ]
+            },
+            {
+                "q": "Yếu tố nào quyết định độ chính xác của hệ thống AI trong dự đoán dữ liệu lớn?",
+                "ans": "Chất lượng và độ đa dạng của dữ liệu huấn luyện",
+                "options": [
+                    "Chất lượng và độ đa dạng của dữ liệu huấn luyện",
+                    "Kích thước bàn phím máy tính",
+                    "Độ phân giải màn hình",
+                    "Màu sắc vỏ máy tính"
+                ]
+            },
+            {
+                "q": "Công nghệ Blockchain khi tích hợp vào IoT sẽ mang lại lợi ích gì lớn nhất?",
+                "ans": "Đảm bảo tính minh bạch và bảo mật dữ liệu giao dịch",
+                "options": [
+                    "Tăng tốc độ sạc pin",
+                    "Đảm bảo tính minh bạch và bảo mật dữ liệu giao dịch",
+                    "Giảm dung lượng RAM",
+                    "Mở rộng góc quay camera"
+                ]
+            },
+            {
+                "q": "Trong hệ thống thực tế tăng cường (AR), việc đồng bộ giữa vật thể ảo và thực tế phụ thuộc chủ yếu vào yếu tố nào?",
+                "ans": "Độ chính xác của cảm biến và thuật toán định vị",
+                "options": [
+                    "Độ chính xác của cảm biến và thuật toán định vị",
+                    "Độ sáng của đèn phòng",
+                    "Tốc độ gõ phím",
+                    "Dung lượng ổ cứng"
+                ]
+            },
+            {
+                "q": "AI trong y học 4.0 có thể được ứng dụng hiệu quả nhất trong lĩnh vực nào?",
+                "ans": "Chẩn đoán hình ảnh và hỗ trợ điều trị",
+                "options": [
+                    "Chẩn đoán hình ảnh và hỗ trợ điều trị",
+                    "Dọn dẹp vệ sinh phòng bệnh",
+                    "In sổ khám bệnh",
+                    "Tính tiền thuốc"
+                ]
+            },
+            {
+                "q": "Lý do chính khiến dữ liệu lớn (Big Data) trở thành yếu tố cốt lõi của công nghệ 4.0 là gì?",
+                "ans": "Cung cấp nền tảng ra quyết định dựa trên dữ liệu thực tế",
+                "options": [
+                    "Làm tăng dung lượng lưu trữ",
+                    "Cung cấp nền tảng ra quyết định dựa trên dữ liệu thực tế",
+                    "Dễ dàng xóa dữ liệu",
+                    "Giúp máy tính chạy mát hơn"
+                ]
+            },
+            {
+                "q": "Một trong những thách thức chính của việc áp dụng AI trong doanh nghiệp là gì?",
+                "ans": "Thiếu dữ liệu chất lượng và nhân lực hiểu biết về AI",
+                "options": [
+                    "Thiếu dữ liệu chất lượng và nhân lực hiểu biết về AI",
+                    "Máy tính quá rẻ",
+                    "Không có kết nối mạng Internet",
+                    "Quá nhiều nhân sự AI"
+                ]
+            },
+            {
+                "q": "Công nghệ nào dưới đây giúp robot có khả năng tự học hỏi trong quá trình vận hành?",
+                "ans": "Machine Learning",
+                "options": [
+                    "HTML/CSS",
+                    "CAD/CAM",
+                    "Machine Learning",
+                    "Bluetooth 5.0"
+                ]
+            },
+            {
+                "q": "Lợi ích của việc tích hợp dữ liệu IoT với hệ thống Big Data là gì?",
+                "ans": "Phân tích và dự báo hành vi của thiết bị theo thời gian thực",
+                "options": [
+                    "Giảm dung lượng ổ cứng",
+                    "Phân tích và dự báo hành vi của thiết bị theo thời gian thực",
+                    "Tắt toàn bộ thiết bị khi có sự cố",
+                    "Tăng chi phí lưu trữ vô ích"
+                ]
+            },
+            {
+                "q": "Trong mô hình nhà thông minh (Smart Home), công nghệ nào là nền tảng trung tâm kết nối các thiết bị?",
+                "ans": "IoT",
+                "options": [
+                    "IoT",
+                    "3D Printing",
+                    "CAD",
+                    "DOS"
+                ]
+            },
+            {
+                "q": "Công nghệ in 3D có thể giúp doanh nghiệp đạt được lợi ích nào sau đây?",
+                "ans": "Tạo mẫu nhanh và giảm thời gian đưa sản phẩm ra thị trường",
+                "options": [
+                    "Tạo mẫu nhanh và giảm thời gian đưa sản phẩm ra thị trường",
+                    "Tăng thời gian thiết kế mẫu",
+                    "Bắt buộc nhập khẩu linh kiện đắt đỏ",
+                    "Loại bỏ hoàn toàn kỹ sư thiết kế"
+                ]
+            },
+            {
+                "q": "Trong hệ thống bảo mật mạng, AI có thể được sử dụng để:",
+                "ans": "Phát hiện hành vi tấn công bất thường dựa trên học máy",
+                "options": [
+                    "Tự động ngắt điện toàn hệ thống",
+                    "Xóa toàn bộ file log mạng",
+                    "Phát hiện hành vi tấn công bất thường dựa trên học máy",
+                    "Thay đổi địa chỉ IP liên tục mỗi giây"
+                ]
+            },
+            {
+                "q": "Điện toán biên (Edge Computing) hỗ trợ IoT bằng cách nào?",
+                "ans": "Xử lý dữ liệu gần nguồn phát sinh thay vì gửi toàn bộ lên đám mây",
+                "options": [
+                    "Xử lý dữ liệu gần nguồn phát sinh thay vì gửi toàn bộ lên đám mây",
+                    "Gửi tất cả dữ liệu thô về trung tâm dữ liệu xa hàng ngàn km",
+                    "Xóa bớt dữ liệu cảm biến",
+                    "Tăng độ trễ truyền dữ liệu"
+                ]
+            },
+            {
+                "q": "Trong sản xuất thông minh, công nghệ nào đóng vai trò hỗ trợ việc bảo trì dự đoán (Predictive Maintenance)?",
+                "ans": "Trí tuệ nhân tạo (AI)",
+                "options": [
+                    "Trí tuệ nhân tạo (AI)",
+                    "Công nghệ in lưới",
+                    "Sóng đài AM/FM",
+                    "Máy chiếu 2D"
+                ]
+            },
+            {
+                "q": "Hệ thống AI trong xe tự lái hoạt động dựa trên nguyên lý nào?",
+                "ans": "Thu thập dữ liệu cảm biến và ra quyết định thời gian thực",
+                "options": [
+                    "Chạy theo kịch bản lập trình sẵn cố định",
+                    "Thu thập dữ liệu cảm biến và ra quyết định thời gian thực",
+                    "Chờ điều khiển từ xa của con người qua vệ tinh",
+                    "Đo khoảng cách bằng thước dây"
+                ]
+            },
+            {
+                "q": "Trong ứng dụng nông nghiệp thông minh, công nghệ nào giúp phân tích đất và tối ưu lượng nước tưới?",
+                "ans": "IoT kết hợp AI",
+                "options": [
+                    "IoT kết hợp AI",
+                    "Máy cày cơ khí truyền thống",
+                    "Công nghệ in 3D",
+                    "Mạng xã hội"
+                ]
+            },
+            {
+                "q": "Mối quan hệ giữa dữ liệu lớn (Big Data) và trí tuệ nhân tạo (AI) được thể hiện rõ nhất ở điểm nào?",
+                "ans": "Big Data là nền tảng thức ăn dữ liệu để AI học và ra quyết định chính xác hơn",
+                "options": [
+                    "Big Data và AI là hai khái niệm hoàn toàn trái ngược nhau",
+                    "Big Data là nền tảng thức ăn dữ liệu để AI học và ra quyết định chính xác hơn",
+                    "AI chỉ hoạt động khi không có Big Data",
+                    "Big Data thay thế hoàn toàn thuật toán AI"
+                ]
+            }
+        ];
+
+        let currentQuestions = [];
+        let userAnswers = {}; // qIndex: { selected: int, isCorrect: bool }
+        let correctAnswersCount = 0;
+
+        function initQuiz(questions) {
+            currentQuestions = JSON.parse(JSON.stringify(questions));
+            userAnswers = {};
+            correctAnswersCount = 0;
+            updateStats();
+
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            currentQuestions.forEach((qObj, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-card-${index}`;
+
+                const title = document.createElement('div');
+                title.className = 'question-title';
+                title.innerHTML = `<span class="question-num">${index + 1}</span> <span>${qObj.q}</span>`;
+                card.appendChild(title);
+
+                const optionsList = document.createElement('div');
+                optionsList.className = 'options-list';
+
+                const prefixes = ['A', 'B', 'C', 'D'];
+
+                qObj.options.forEach((opt, optIndex) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.id = `opt-${index}-${optIndex}`;
+                    btn.innerHTML = `<span class="option-prefix">${prefixes[optIndex]}</span> <span>${opt}</span>`;
+                    btn.onclick = () => selectOption(index, optIndex, opt, qObj.ans);
+                    optionsList.appendChild(btn);
+                });
+
+                card.appendChild(optionsList);
+
+                const feedback = document.createElement('div');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${index}`;
+                card.appendChild(feedback);
+
+                container.appendChild(card);
+            });
+        }
+
+        function selectOption(qIdx, selectedOptIdx, selectedText, correctAnsText) {
+            if (userAnswers[qIdx] !== undefined) return;
+
+            const qObj = currentQuestions[qIdx];
+            const isCorrect = (selectedText.trim() === correctAnsText.trim());
+
+            userAnswers[qIdx] = { selected: selectedOptIdx, isCorrect: isCorrect };
+
+            if (isCorrect) {
+                correctAnswersCount++;
+            }
+
+            qObj.options.forEach((_, optIdx) => {
+                const btn = document.getElementById(`opt-${qIdx}-${optIdx}`);
+                btn.disabled = true;
+
+                if (qObj.options[optIdx].trim() === correctAnsText.trim()) {
+                    btn.classList.add('correct');
+                } else if (optIdx === selectedOptIdx && !isCorrect) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            const feedback = document.getElementById(`feedback-${qIdx}`);
+            if (isCorrect) {
+                feedback.className = 'feedback show-correct';
+                feedback.innerHTML = ' Chính xác!';
+            } else {
+                feedback.className = 'feedback show-incorrect';
+                feedback.innerHTML = ` Sai rồi! Đáp án đúng là: <strong>${correctAnsText}</strong>`;
+            }
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const doneCount = Object.keys(userAnswers).length;
+            document.getElementById('done-count').innerText = doneCount;
+            document.getElementById('correct-count').innerText = correctAnswersCount;
+
+            const pct = doneCount > 0 ? Math.round((correctAnswersCount / doneCount) * 100) : 0;
+            document.getElementById('score-pct').innerText = pct + '%';
+        }
+
+        function resetQuiz() {
+            if (confirm('Bạn có chắc chắn muốn làm lại từ đầu không?')) {
+                initQuiz(originalQuestions);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function shuffleQuiz() {
+            if (confirm('Đảo câu hỏi sẽ reset bài làm hiện tại. Bạn có muốn tiếp tục?')) {
+                let shuffled = [...originalQuestions];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                initQuiz(shuffled);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        window.onload = () => {
+            initQuiz(originalQuestions);
+        };
+    </script>
+</body>
+
+</html>
